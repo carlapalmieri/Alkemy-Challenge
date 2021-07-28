@@ -10,7 +10,34 @@ const config = {
 
 const pool = new Pool(config);
 
-const getOperations = async(req, res) => {
+const getIncomings = async(req, res) => {
+    try {
+        const response = await pool.query('SELECT SUM(monto) FROM operations WHERE tipo = "ingreso"');
+        res.status(200).json(response.rows)
+    } catch(err) {
+        console.log(err)
+    }
+};
+
+const getExpenses = async(req, res) => {
+    try {
+        const response = await pool.query('SELECT SUM(monto) FROM operations WHERE tipo = "egreso"');
+        res.status(200).json(response.rows)
+    } catch(err) {
+        console.log(err)
+    }
+};
+
+const getAllOperations = async(req, res) => {
+    try {
+        const response = await pool.query('SELECT * FROM operations ORDER BY fecha DESC LIMIT 10');
+        res.status(200).json(response.rows)
+    } catch(err) {
+        console.log(err)
+    }
+};
+
+const getLastOperations = async(req, res) => {
     try {
         const response = await pool.query('SELECT * FROM operations');
         res.status(200).json(response.rows)
@@ -21,9 +48,9 @@ const getOperations = async(req, res) => {
 
 const insertOperation = async(req, res) => {
     try {
-        const { concepto, monto, tipo } = req.body;
+        const { concepto, monto, fecha, tipo } = req.body;
         
-        const response = await pool.query('INSERT INTO operations (concepto, monto, tipo) VALUES($1, $2, $3)', [concepto, monto, tipo]);
+        const response = await pool.query('INSERT INTO operations (concepto, monto, fecha, tipo) VALUES($1, $2, $3)', [concepto, monto, fecha, tipo]);
 
         res.json({
             message: 'Operation created succesfully',
@@ -71,7 +98,10 @@ const updateOperation = async(req, res) => {
 
 
 module.exports = {
-    getOperations,
+    getExpenses,
+    getIncomings,
+    getAllOperations,
+    getLastOperations,
     insertOperation,
     getOperationById,
     deleteOperation,

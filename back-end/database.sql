@@ -5,7 +5,7 @@ create table operations(
     concepto varchar(50) null,
     monto int not null,
     fecha date not null default current_date,
-    tipo varchar(7) not null
+    tipo enum('ingreso','egreso') not null
 );
 
 insert into operations values 

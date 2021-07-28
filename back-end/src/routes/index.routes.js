@@ -1,9 +1,15 @@
 const { Router} = require('express');
 const router = Router();
 
-const { getOperations, insertOperation, getOperationById, deleteOperation, updateOperation } = require('../controllers/index.controllers')
+const { getIncomings, getExpenses, getAllOperations, getLastOperations, insertOperation, getOperationById, deleteOperation, updateOperation } = require('../controllers/index.controllers')
 
-router.get('/operations', getOperations);
+// page home
+router.get('/lastoperations', getLastOperations);
+router.get('/incomings', getIncomings);
+router.get('/expenses', getExpenses);
+
+// page ABM
+router.get('/operations', getAllOperations);
 router.get('/operations/:id', getOperationById);
 router.post('/operations', insertOperation);
 router.delete('/operations/:id', deleteOperation);
