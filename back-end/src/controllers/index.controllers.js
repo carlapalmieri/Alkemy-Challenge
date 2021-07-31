@@ -10,9 +10,11 @@ const config = {
 
 const pool = new Pool(config);
 
+
+
 const getIncomings = async(req, res) => {
     try {
-        const response = await pool.query('SELECT SUM(monto) FROM operations WHERE tipo = "ingreso"');
+        const response = await pool.query("SELECT sum(monto) FROM public.operations WHERE tipo like 'ingreso'");
         res.status(200).json(response.rows)
     } catch(err) {
         console.log(err)
@@ -21,12 +23,32 @@ const getIncomings = async(req, res) => {
 
 const getExpenses = async(req, res) => {
     try {
-        const response = await pool.query('SELECT SUM(monto) FROM operations WHERE tipo = "egreso"');
+        const response = await pool.query("SELECT sum(monto) FROM public.operations WHERE tipo like 'egreso'");
         res.status(200).json(response.rows)
     } catch(err) {
         console.log(err)
     }
 };
+
+const getLastIncomings = async(req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM operations WHERE tipo like 'ingreso' or tipo like 'Ingreso'");
+        res.status(200).json(response.rows)
+    } catch(err) {
+        console.log(err)
+    }
+};
+
+const getLastExpenses = async(req, res) => {
+    try {
+        const response = await pool.query("SELECT * FROM operations WHERE tipo like 'egreso' or tipo like 'Egreso'");
+        res.status(200).json(response.rows)
+    } catch(err) {
+        console.log(err)
+    }
+};
+
+
 
 const getAllOperations = async(req, res) => {
     try {
@@ -50,7 +72,7 @@ const insertOperation = async(req, res) => {
     try {
         const { concepto, monto, fecha, tipo } = req.body;
         
-        const response = await pool.query('INSERT INTO operations (concepto, monto, fecha, tipo) VALUES($1, $2, $3)', [concepto, monto, fecha, tipo]);
+        const response = await pool.query('INSERT INTO operations (concepto, monto, fecha, tipo) VALUES($1, $2, $3, $4)', [concepto, monto, fecha, tipo]);
 
         res.json({
             message: 'Operation created succesfully',
@@ -98,6 +120,8 @@ const updateOperation = async(req, res) => {
 
 
 module.exports = {
+    getLastExpenses,
+    getLastIncomings,
     getExpenses,
     getIncomings,
     getAllOperations,

@@ -1,0 +1,12 @@
+.brand-style {
+    font-weight: 500;
+    font-size:x-large;
+}
+
+.brand-style:on {
+    color: var(--cian);
+}
+
+.active {
+    font-weight: 600;
+}

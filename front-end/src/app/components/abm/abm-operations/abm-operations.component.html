@@ -1,0 +1,107 @@
+<div class="container-fluid">
+    <div class="row justify-content-center my-4">
+        <h2 class="text-style" *ngIf="edit === false">Llene los campos fecha, monto y tipo para añadir una operación</h2>
+        <h2 class="text-style" *ngIf="edit === true">Edite los campos monto y tipo para editar una operación, añada la fecha</h2>
+        <div class="col-auto card">
+          <div class="card-body">
+            <div class="example-container">
+              <div class="row">
+                <div class="col-12 col-sm-auto m-2">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Selecciona el tipo</mat-label>
+                    <mat-select [(value)]="operation.tipo">
+                      <mat-option value="Ingreso">Ingreso</mat-option>
+                      <mat-option value="Egreso">Egreso</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+    
+                <div class="col-12 col-sm-auto m-2">
+                  <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Concepto</mat-label>
+                    <input matInput type= "text" [(ngModel)]="operation.concepto" maxlength="50" placeholder="Ej. Supermercado" value="">
+                    <mat-hint align= 'end'>{{operation.concepto.length}} / 50</mat-hint>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-12 col-sm-auto m-2">
+                    <input type="date" class="form-control" style="border-radius: 4px 4px 0 0;
+                    background-color: rgba(0,0,0,.04); border: 0px; border-bottom: 1px solid rgba(0, 0, 0, 0.442); height: 50px;" name="fecha" [(ngModel)]="operation.fecha" placeholder="Fecha" class="form-control" id="" autofocus>
+                </div>
+    
+                <div class="col-12 col-sm-auto m-2">
+                  <mat-form-field appearance="fill" floatLabel="always">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number" [(ngModel)]="operation.monto" class="example-right-align" placeholder="0">
+                    <span matPrefix>$&nbsp;</span>
+                    <span matSuffix>.00</span>
+                  </mat-form-field>
+                </div>
+    
+                <div class="col-12 col-sm-auto m-2">
+                  <button type="button" class="btn btn-success" (click)="edit ? updateOperation() : saveOperation()" style="height: 50px;">Guardar</button>
+                </div>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+        <div class="col-12 col-lg-5 offset-lg-1">
+            <h2 class="text-style" style="color: green">Ingresos</h2>
+            <table class="table table-hover bg-white m-2" style="margin-left: 20%;">
+                <thead>
+                <tr>
+                    <th scope="col" style="color: green">Tipo</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Actions</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-inf" *ngFor="let operation of lastIncomings">
+                        <th scope="row" style="color: green">{{operation.tipo}}</th>
+                        <td>{{operation.fecha.substr(8, 2)}}/{{operation.fecha.substr(5, 2)}}/{{operation.fecha.substr(0, 4)}}</td>
+                        <td>{{operation.monto}}</td>
+                        <td>{{operation.concepto}}</td>
+                        <td>
+                        <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="editOperation(operation.id)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteOperation(operation.id)">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-lg-5">
+            <h2 class="text-style" style="color: red;">Egresos</h2>
+            <table class="table table-hover bg-white m-2">
+                <thead>
+                <tr>
+                    <th scope="col" style="color: red;">Tipo</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Actions</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-inf" *ngFor="let operation of lastExpenses">
+                        <th scope="row" style="color: red;">{{operation.tipo}}</th>
+                        <td>{{operation.fecha.substr(8, 2)}}/{{operation.fecha.substr(5, 2)}}/{{operation.fecha.substr(0, 4)}}</td>
+                        <td>{{operation.monto}}</td>
+                        <td>{{operation.concepto}}</td>
+                        <td>
+                        <button type="button" class="btn btn-success" style="margin-right: 10px;" (click)="editOperation(operation.id)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteOperation(operation.id)" >Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

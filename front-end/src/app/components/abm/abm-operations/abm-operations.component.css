@@ -1,0 +1,20 @@
+.btn-success {
+    background-color: var(--cian);
+}
+
+.example-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+.form-control {
+  color: rgba(0, 0, 0, 0.571);
+}
+
+.form-control:hover {
+  cursor: pointer;
+}
+
+.text-style {
+  text-align: center;
+  font-size: x-large;
+  letter-spacing: 1;
+}
