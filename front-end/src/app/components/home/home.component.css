@@ -1,8 +1,33 @@
 table {
-    width: 90%;
+    width: 95%;
   }
 
-h4 {
+.container-table {
+  padding: 5px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.149);
+  border-radius: 3px;
+}
+
+h2 {
   text-align: center;
   padding: 20px;
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.card-style {
+  margin: 20px
+}
+
+.total-in-style {
+  color: green;
+} 
+
+.total-ex-style {
+  color: rgb(211, 0, 0);
+  font-size: 100px;
 }

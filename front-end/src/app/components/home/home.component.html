@@ -1,19 +1,35 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-4">
-          <div class="card card-style text-center">
+    <div class="row d-flex justify-content-center" style="height: 100vh;">
+        <div class="col-12 col-sm-8 col-lg-4">
+          <div class="card card-style text-center" style="margin-top: 50px;">
             <div class="card-body">
-              <h4 class="card-title">Dinero disponible</h4>
-              <h2 class="card-title">advsdv</h2>
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <div class="row">{{incomings[0].sum}}</div>
-              <a href="#" class="card-link">Card link</a>
+              <h2 class="card-title">Dinero disponible</h2>
+              <h1 class="card-title">${{total}}</h1>
+              <div class="row d-flex justify-content-around total-in-style">
+                <div class="col-auto">
+                  <h3>Ingresos</h3>
+                </div>
+                  <div class="col-auto d-flex flex-direction-row">
+                    <div class="col">$ {{incomings[0].sum}}</div>
+                  </div>
+              </div>
+
+              <div class="row d-flex justify-content-around total-ex-style">
+                <div class="col-auto">
+                  <h3>Egresos</h3>
+                </div>
+                  <div class="col-auto">
+                    <div class="col">$ {{expenses[0].sum}}</div>
+                  </div>
+              </div>
+              <a routerLink='/operations' class="card-link">Ver operaciones</a>
             </div>
           </div>
         </div>
-        <div class="col-8">
-            <h4>Últimas operaciones</h4>
+        <div class="col-12 col-lg-8">
+            <h2 >Últimas operaciones</h2>
             <div class="row justify-content-center">
+              <div class="col-11 container-table">
                 <table class="table table-hover bg-white">
                     <thead>
                       <tr>
@@ -33,6 +49,7 @@
                       </tr>
                     </tbody>
                 </table>
+              </div>
             </div>
            
         </div>

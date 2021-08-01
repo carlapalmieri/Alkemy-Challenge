@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
 
   incomings: any = [];
 
+  expenses: any = [];
+
+  total: any = this.incomings - this.expenses;
+
   constructor(private operationsService: OperationsService) { }
   
   ngOnInit(): void {
@@ -27,7 +31,13 @@ export class HomeComponent implements OnInit {
     this.operationsService.getIncomings().subscribe(
       res => {
         this.incomings = res
-        console.log(this.incomings)
+      },
+      err => console.log(err)
+    )
+
+    this.operationsService.getExpenses().subscribe(
+      res => {
+        this.expenses = res
       },
       err => console.log(err)
     )
